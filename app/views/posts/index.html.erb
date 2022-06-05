@@ -1,2 +1,27 @@
-<h1>Posts#index</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
+<h3>タグリスト</h3>
+<% @tag_list.each do |list| %>
+   <%= list.tag_name %>
+   <%= "(#{list.posts.count})" %>
+<% end %>
+
+<!--posts/indexアクションでTag.allをひとつづつ取り出しlistに変数化-->
+<!--listのタグからtag_nameカラムを呼び出し表示、選択したタグに紐づく投稿にリンク-->
+<!--リストに紐づく投稿の配列{} , 数字で表示させるため""-->
+
+<br>
+
+<h3>新規投稿フォーム</h3>
+<%= form_with model: @post, url: posts_path, method: :post do |f| %>
+ <%= f.text_area :content %>
+ <%= f.text_field :tag_name %>
+  <!--入力されたタグがparams[:post][:tag_name]というパラメータとしてcreateアクションに送信される-->
+<%= f.submit "投稿" %>
+<% end %>
+
+<br>
+
+<h3>投稿一覧</h3>
+ <% @posts.each do |post| %>
+  <%= post.content %>
+<% end  %>
+
